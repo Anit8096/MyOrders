@@ -31,7 +31,7 @@ fun TopSection() {
                 ),
                 shape = RoundedCornerShape(bottomStart = 28.dp, bottomEnd = 28.dp)
             )
-            .padding(horizontal = 20.dp, vertical = 24.dp)
+            .padding(horizontal = 20.dp).padding(bottom = 24.dp)
     ) {
         Surface(
             modifier = Modifier
@@ -51,7 +51,7 @@ fun TopSection() {
         Spacer(modifier = Modifier.height(12.dp))
         Text(
             text = "My Orders",
-            fontSize = 34.sp,
+            fontSize = 30.sp,
             lineHeight = 36.sp,
             fontWeight = FontWeight.ExtraBold,
             color = Color(0xFF111111)

@@ -12,7 +12,9 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -50,17 +52,17 @@ fun TabSection() {
             itemsIndexed(tabs) { index, title ->
                 val isSelected = selectedTab == index
 
-                Box(
+                TextButton(
+                    onClick = { selectedTab = index },
                     modifier = Modifier
                         .widthIn(min = 90.dp)
-                        .height(42.dp)
-                        .background(
-                            if (isSelected) Color(0xFFFFCC2E) else Color.Transparent,
-                            RoundedCornerShape(12.dp)
-                        )
-                        .clickable { selectedTab = index }
-                        .padding(horizontal = 6.dp),
-                    contentAlignment = Alignment.Center
+                        .height(42.dp),
+                    shape = RoundedCornerShape(12.dp),
+                    colors = ButtonDefaults.textButtonColors(
+                        containerColor = if (isSelected) Color(0xFFFFCC2E) else Color.Transparent,
+                        contentColor = if (isSelected) Color.Black else Color.Gray
+                    ),
+                    contentPadding = PaddingValues(horizontal = 3.dp)
                 ) {
                     Text(
                         text = title,
@@ -69,8 +71,7 @@ fun TabSection() {
                         maxLines = 1,
                         softWrap = false,
                         overflow = TextOverflow.Ellipsis,
-                        textAlign = TextAlign.Center,
-                        color = if (isSelected) Color(0xFF111827) else Color(0xFF5E6673)
+                        textAlign = TextAlign.Center
                     )
                 }
             }
