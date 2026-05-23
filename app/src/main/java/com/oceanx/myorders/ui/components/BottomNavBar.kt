@@ -60,9 +60,15 @@ fun BottomNavBar() {
 
 @Composable
 private fun navItemColors() = NavigationBarItemDefaults.colors(
-    selectedIconColor = Color(0xFF111827),
-    selectedTextColor = Color(0xFF111827),
-    indicatorColor = Color(0xFFE7EDF6),
-    unselectedIconColor = Color(0xFFA1A1AA),
-    unselectedTextColor = Color(0xFFA1A1AA)
+
+    // Selected item
+    selectedIconColor = Color(0xFFB45309),
+    selectedTextColor = Color(0xFFB46109),
+
+    // Selected pill background
+    indicatorColor = Color(0xFFFFE7A3),
+
+    // Unselected items
+    unselectedIconColor = Color(0xFF151414),
+    unselectedTextColor = Color(0xFF111111)
 )

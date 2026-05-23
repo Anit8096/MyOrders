@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -119,7 +120,7 @@ fun OrderCard(order: Order) {
             )
 
             Spacer(modifier = Modifier.height(12.dp))
-            HorizontalDivider(color = Color(0xFFF1F5F9), thickness = 1.dp)
+            HorizontalDivider(color = Color(0xFFF1F5F9), thickness = 3.dp)
             Spacer(modifier = Modifier.height(12.dp))
 
             ActionRow(order.orderStatus)
@@ -129,21 +130,44 @@ fun OrderCard(order: Order) {
 
 @Composable
 private fun ActionRow(status: String) {
+
+    val statusBgColor = when (status) {
+        "COMPLETED" -> Color(0xFFE8F8EE)
+        "BOOKED AGAIN" -> Color(0xFFF1F5F9)
+        else -> Color(0xFFFFECEA)
+    }
+
+    val statusTextColor = when (status) {
+        "COMPLETED" -> Color(0xFF16A34A)
+        "BOOKED AGAIN" -> Color(0xFF64748B)
+        else -> Color(0xFFD92D20)
+    }
+
+    val actionButtonText = when (status) {
+        "BOOKED AGAIN" -> "Cancel"
+        else -> "Book Again"
+    }
+
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(10.dp)
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
+
         Box(
             modifier = Modifier
-                .background(Color(0xFFFFECEA), RoundedCornerShape(50))
-                .padding(horizontal = 12.dp, vertical = 8.dp)
+                .background(
+                    color = statusBgColor,
+                    shape = RoundedCornerShape(50)
+                )
+                .padding(horizontal = 14.dp, vertical = 10.dp)
         ) {
             Text(
                 text = status,
-                color = Color(0xFFD92D20),
-                fontSize = 12.sp,
-                fontWeight = FontWeight.SemiBold
+                color = statusTextColor,
+                fontSize = 11.sp,
+                fontWeight = FontWeight.SemiBold,
+                maxLines = 1
             )
         }
 
@@ -155,51 +179,50 @@ private fun ActionRow(status: String) {
                 onClick = {},
                 modifier = Modifier
                     .weight(1f)
-                    .height(40.dp),
+                    .height(42.dp),
                 shape = RoundedCornerShape(50),
                 border = BorderStroke(1.dp, Color(0xFFD6DCE7)),
                 colors = ButtonDefaults.outlinedButtonColors(
                     contentColor = Color(0xFF4B5563)
-                )
+                ),
+                contentPadding = PaddingValues(horizontal = 10.dp)
             ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(
-                        imageVector = Icons.Outlined.Download,
-                        contentDescription = null,
-                        modifier = Modifier.size(16.dp)
-                    )
+                Icon(
+                    imageVector = Icons.Outlined.Download,
+                    contentDescription = null,
+                    modifier = Modifier.size(16.dp)
+                )
 
-                    Spacer(modifier = Modifier.width(6.dp))
-                    Text(
-                        text = "Invoice",
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                }
+                Spacer(modifier = Modifier.width(4.dp))
+                Text(
+                    text = "Invoice",
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    maxLines = 1
+                )
             }
 
             Button(
                 onClick = {},
                 modifier = Modifier
                     .weight(1f)
-                    .height(40.dp),
+                    .height(42.dp),
                 shape = RoundedCornerShape(50),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFFFFCC2E),
                     contentColor = Color(0xFF111827)
-                )
+                ),
+                contentPadding = PaddingValues(horizontal = 12.dp)
             ) {
                 Text(
-                    text = "Book Again",
+                    text = actionButtonText,
                     fontSize = 12.sp,
-                    fontWeight = FontWeight.SemiBold
+                    fontWeight = FontWeight.SemiBold,
+                    maxLines = 1
                 )
             }
         }
+
     }
 }
 

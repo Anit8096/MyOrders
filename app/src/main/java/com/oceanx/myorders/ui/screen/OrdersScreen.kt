@@ -43,7 +43,7 @@ fun OrdersScreen(
     val filteredOrders = when (orderTabs.getOrNull(selectedTab)) {
         "Completed" -> orders.filterByStatus("COMPLETED")
         "Cancelled" -> orders.filterByStatus("CANCELLED")
-        "Booked Again" -> orders.filterByStatus("BOOKED_AGAIN")
+        "Booked Again" -> orders.filterByStatus("BOOKED AGAIN")
         else -> orders
     }
 
