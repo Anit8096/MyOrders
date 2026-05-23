@@ -11,46 +11,45 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
+import com.oceanx.myorders.navigation.AppRoute
 
 @Composable
-fun BottomNavBar() {
-    var selectedItem by remember { mutableIntStateOf(1) }
+fun BottomNavBar(
+    currentRoute: AppRoute,
+    onNavigate: (AppRoute) -> Unit
+) {
 
     NavigationBar(
         containerColor = Color.White
     ) {
         NavigationBarItem(
-            selected = selectedItem == 0,
-            onClick = { selectedItem = 0 },
+            selected = currentRoute == AppRoute.Home,
+            onClick = { onNavigate(AppRoute.Home) },
             icon = { Icon(Icons.Outlined.Home, contentDescription = null) },
             label = { Text("Home") },
             colors = navItemColors()
         )
 
         NavigationBarItem(
-            selected = selectedItem == 1,
-            onClick = { selectedItem = 1 },
+            selected = currentRoute == AppRoute.Orders,
+            onClick = { onNavigate(AppRoute.Orders) },
             icon = { Icon(Icons.AutoMirrored.Outlined.List, contentDescription = null) },
             label = { Text("Orders") },
             colors = navItemColors()
         )
 
         NavigationBarItem(
-            selected = selectedItem == 2,
-            onClick = { selectedItem = 2 },
+            selected = currentRoute == AppRoute.Payment,
+            onClick = { onNavigate(AppRoute.Payment) },
             icon = { Icon(Icons.Outlined.Payment, contentDescription = null) },
             label = { Text("Payments") },
             colors = navItemColors()
         )
 
         NavigationBarItem(
-            selected = selectedItem == 3,
-            onClick = { selectedItem = 3 },
+            selected = currentRoute == AppRoute.Account,
+            onClick = { onNavigate(AppRoute.Account) },
             icon = { Icon(Icons.Outlined.AccountCircle, contentDescription = null) },
             label = { Text("Account") },
             colors = navItemColors()

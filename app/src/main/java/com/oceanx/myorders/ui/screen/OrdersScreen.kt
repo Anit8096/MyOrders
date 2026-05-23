@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.oceanx.myorders.data.model.Order
+import com.oceanx.myorders.navigation.AppRoute
 import com.oceanx.myorders.ui.components.BottomNavBar
 import com.oceanx.myorders.ui.components.OrderCard
 import com.oceanx.myorders.ui.components.SearchBar
@@ -35,7 +36,8 @@ import com.oceanx.myorders.ui.viewmodel.OrdersViewModel
 
 @Composable
 fun OrdersScreen(
-    viewModel: OrdersViewModel
+    viewModel: OrdersViewModel,
+    onNavigate: (AppRoute) -> Unit
 ) {
     val orders = viewModel.orders.collectAsStateWithLifecycle().value
     var selectedTab by remember { mutableIntStateOf(0) }
@@ -52,7 +54,10 @@ fun OrdersScreen(
     Scaffold(
         containerColor = screenBackground,
         bottomBar = {
-            BottomNavBar()
+            BottomNavBar(
+                currentRoute = AppRoute.Orders,
+                onNavigate = onNavigate
+            )
         },
         topBar = {
             TopSection()
