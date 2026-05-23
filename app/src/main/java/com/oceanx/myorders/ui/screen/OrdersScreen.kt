@@ -15,16 +15,22 @@ import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.oceanx.myorders.data.model.Order
 import com.oceanx.myorders.ui.components.BottomNavBar
 import com.oceanx.myorders.ui.components.OrderCard
 import com.oceanx.myorders.ui.components.SearchBar
 import com.oceanx.myorders.ui.components.TabSection
 import com.oceanx.myorders.ui.components.TopSection
+import com.oceanx.myorders.ui.components.orderTabs
 import com.oceanx.myorders.ui.viewmodel.OrdersViewModel
 
 @Composable
@@ -32,6 +38,15 @@ fun OrdersScreen(
     viewModel: OrdersViewModel
 ) {
     val orders = viewModel.orders.collectAsStateWithLifecycle().value
+    var selectedTab by remember { mutableIntStateOf(0) }
+
+    val filteredOrders = when (orderTabs.getOrNull(selectedTab)) {
+        "Completed" -> orders.filterByStatus("COMPLETED")
+        "Cancelled" -> orders.filterByStatus("CANCELLED")
+        "Booked Again" -> orders.filterByStatus("BOOKED_AGAIN")
+        else -> orders
+    }
+
     val screenBackground = Color(0xFFF4F6FA)
 
     Scaffold(
@@ -63,7 +78,10 @@ fun OrdersScreen(
                 .background(screenBackground)
         ) {
             SearchBar()
-            TabSection()
+            TabSection(
+                selectedTab = selectedTab,
+                onTabSelected = { selectedTab = it }
+            )
 
             Spacer(modifier = Modifier.height(10.dp))
             LazyColumn(
@@ -74,10 +92,14 @@ fun OrdersScreen(
                 ),
                 verticalArrangement = Arrangement.spacedBy(14.dp)
             ) {
-                items(orders) { order ->
+                items(filteredOrders) { order ->
                     OrderCard(order = order)
                 }
             }
         }
     }
+}
+
+private fun List<Order>.filterByStatus(status: String): List<Order> {
+    return filter { order -> order.orderStatus.equals(status, ignoreCase = true) }
 }

@@ -1,7 +1,6 @@
 package com.oceanx.myorders.ui.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -16,10 +15,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,10 +25,14 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+val orderTabs = listOf("All Orders", "Completed", "Cancelled", "Booked Again")
+
 @Composable
-fun TabSection() {
-    val tabs = listOf("All Orders", "Completed", "Cancelled", "Booked Again")
-    var selectedTab by remember { mutableIntStateOf(0) }
+fun TabSection(
+    selectedTab: Int,
+    onTabSelected: (Int) -> Unit,
+    tabs: List<String> = orderTabs
+) {
     val containerShape = RoundedCornerShape(16.dp)
 
     Box(
@@ -53,7 +52,7 @@ fun TabSection() {
                 val isSelected = selectedTab == index
 
                 TextButton(
-                    onClick = { selectedTab = index },
+                    onClick = { onTabSelected(index) },
                     modifier = Modifier
                         .widthIn(min = 90.dp)
                         .height(42.dp),
