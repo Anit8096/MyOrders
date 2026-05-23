@@ -113,13 +113,15 @@ Dependency injection is handled by **Koin**, with modules defined in `AppModule.
 
 ## 📸 Screenshots
 
-> *(Add screenshots here)*
+| Orders | Home | Payments | Account |
+|--------|------|----------|---------|
+| <img src="screenshorts/Orders_Screen.png" width="200"/> | <img src="screenshorts/Home_Screen.png" width="200"/> | <img src="screenshorts/Payment_Screen.png" width="200"/> | <img src="screenshorts/Account_Screen.png" width="200"/> |
 
 ---
 
 ## 🎥 Demo
 
-> *(Add screen recording link here)*
+https://github.com/Anit8096/MyOrders/blob/master/screenshorts/App_Video.mp4
 
 ---
 
